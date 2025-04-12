@@ -20,10 +20,15 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <!-- Font Awesome -->
+    <%= stylesheet_link_tag "admin-lte/plugins/fontawesome-free/css/all.min.css", media: "all" %>
+    <!-- AdminLTE & Bootstrap -->
+    <%= stylesheet_link_tag "admin-lte/dist/css/adminlte.min.css", media: "all" %>
   </head>
 
   <body class="hold-transition sidebar-mini">
   <div class="wrapper"> 
+    <%= render 'layouts/control_sidebar'%>
   <%= render 'layouts/header'%>
   <%= render 'layouts/sidebar'%>
     <!-- Content Wrapper. Contains page content -->
@@ -60,7 +65,9 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
    </div>
   <!-- /.wrapper -->
+  <%= render 'layouts/footer'%>
   </body>
 </html>
