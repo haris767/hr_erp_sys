@@ -3,7 +3,7 @@
     <!-- Control sidebar content goes here -->
     <div class="p-3">
       <% if user_signed_in? %>
-               <%= link_to "Edit user detail", edit_user_registration_path %>
+               <%#= link_to "Edit user detail", edit_user_registration_path %>
               <%= button_to "Log out", destroy_user_session_path, method: :delete , class:"block px-4 py-2 text-sm text-gray-700", role:"menuitem", tabindex:"-1" %>
             <% else %>
               <%= link_to "Log in", new_user_session_path, class:'js-login block px-4 py-2 text-sm text-gray-700', role:"menuitem", tabindex:"-1" %>

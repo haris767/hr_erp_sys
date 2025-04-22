@@ -47,7 +47,11 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-6">
-            
+             <% flash.each do |key, message| %>
+            <div class="alert alert-<%= key == "notice" ? "success" : "warning" %>">
+              <%= message %>
+            </div>
+          <% end %>
                  <%= yield %>
         </div>
         <!-- /.row -->
