@@ -1,4 +1,5 @@
 class Hr::UsersController < ApplicationController
+  before_action :authenticate_user!
   def index
     if params[:query].present?
       @users = User.where("name ILIKE ?", "%#{params[:query]}%")
