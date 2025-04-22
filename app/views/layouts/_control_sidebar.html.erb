@@ -2,8 +2,13 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
+      <% if user_signed_in? %>
+               <%= link_to "Edit user detail", edit_user_registration_path %>
+              <%= button_to "Log out", destroy_user_session_path, method: :delete , class:"block px-4 py-2 text-sm text-gray-700", role:"menuitem", tabindex:"-1" %>
+            <% else %>
+              <%= link_to "Log in", new_user_session_path, class:'js-login block px-4 py-2 text-sm text-gray-700', role:"menuitem", tabindex:"-1" %>
+              <%= link_to "Sign up", new_user_registration_path, class:'block px-4 py-2 text-sm text-gray-700', role:"menuitem", tabindex:"-1" %>
+            <% end %>
     </div>
   </aside>
   <!-- /.control-sidebar -->

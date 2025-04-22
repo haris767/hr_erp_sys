@@ -19,8 +19,10 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    
     <%= javascript_include_tag "application" %>
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <%= stylesheet_link_tag "admin-lte/plugins/fontawesome-free/css/all.min.css", media: "all" %>
     <!-- AdminLTE & Bootstrap -->
     <%= stylesheet_link_tag "admin-lte/dist/css/adminlte.min.css", media: "all" %>
@@ -30,28 +32,15 @@
 
   <body class="hold-transition sidebar-mini">
   <div class="wrapper"> 
+    
     <%= render 'layouts/control_sidebar'%>
   <%= render 'layouts/header'%>
-  <%= render 'layouts/sidebar'%>
+  
+  <%= render 'layouts/sidebar' %>
+
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Starter Page</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    
 
     <!-- Main content -->
     <div class="content">

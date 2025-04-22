@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hr Erp System</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+   <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <%= stylesheet_link_tag "admin-lte/plugins/fontawesome-free/css/all.min.css", media: "all" %>
+    <!-- AdminLTE & Bootstrap -->
+    <%= stylesheet_link_tag "admin-lte/dist/css/adminlte.min.css", media: "all" %>
+     <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f4f6f9; /* Optional: background color */
+    }
+
+    .signup-box {
+      width: 100%;
+      max-width: 400px; /* You can adjust the max width */
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .signup-logo {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  </style>
+
+</head>
+
+<body class="hold-transition signup-page">
+
+<div class="signup-box">
+  <div class="signup-logo">
+    <b>Hr</b>Erp System
+  </div>
+
+  <div class="card">
+    <div class="card-body signup-card-body">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
