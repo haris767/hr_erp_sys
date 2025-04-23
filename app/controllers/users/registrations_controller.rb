@@ -36,36 +36,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = current_user
   end
 
-  # PUT /resource
-  def update
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+# GET /users/:id/edit_user (custom admin edit)
+def edit
+  @user = User.find(params[:id])
+end
 
-    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
-    resource_updated = update_resource(resource, account_update_params)
-    yield resource if block_given?
-
-    if resource_updated
-      set_flash_message_for_update(resource, prev_unconfirmed_email)
-      bypass_sign_in resource, scope: resource_name
-      redirect_to user_profile_path, notice: "Profile updated successfully."
-    else
-      clean_up_passwords resource
-      set_minimum_password_length
-      respond_with resource
-    end
+# PUT /users/:id/update_user (custom admin update)
+def update
+  @user = User.find(params[:id])
+  if @user.update(sign_up_params)
+    redirect_to admin_user_list_path, notice: "User updated successfully."
+  else
+    render :edit
   end
+end
 
   # DELETE /users
   def destroy
-    user = User.find(params[:id]) # Find the user by ID
+    user = User.find_by(id: params[:id]) # Find the user by ID
     if user == current_user
       flash[:alert] = "You cannot delete your own account."
       redirect_to root_path
     else
       user.destroy
       flash[:notice] = "User account successfully deleted."
-      redirect_to users_path # or wherever you want to redirect after deletion
+      redirect_to root_path # or wherever you want to redirect after deletion
     end
   end
 
@@ -84,11 +79,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :name, :active)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :active, role_ids: [])
   end
 
   # Allow additional fields for account update
   def account_update_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :name, :active)
+    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :name, :active, role_ids: [])
   end
 end

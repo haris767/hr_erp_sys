@@ -27,6 +27,13 @@
     <%= f.label :active, class: "form-check-label ml-2" %>
   </div>
 </div>
+<div class="field">
+    <%= f.label :roles, "Select Roles" %><br/>
+    <% Role.all.each do |role| %>
+      <%= check_box_tag "user[role_ids][]", role.id, false, id: "role_#{role.id}" %>
+      <%= label_tag "role_#{role.id}", role.name %><br/>
+    <% end %>
+  </div>
 
   <div class="row">
     <div class="col-8">

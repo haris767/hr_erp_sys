@@ -49,6 +49,16 @@
         <%= f.check_box :active, { class: "form-check-input", id: "user_active" }, true, false %>
         <%= f.label :active, "Active", class: "form-check-label", for: "user_active" %>
       </div>
+
+      <div class="field">
+    <%= f.label :roles, "Select Roles" %><br/>
+    <% Role.all.each do |role| %>
+      <%= check_box_tag "user[role_ids][]", role.id, false, id: "role_#{role.id}" %>
+      <%= label_tag "role_#{role.id}", role.name %><br/>
+    <% end %>
+  </div>
+
+
       <div class="card-footer text-right">
         <%= f.submit "Update", class: "btn btn-primary" %>
       </div>
