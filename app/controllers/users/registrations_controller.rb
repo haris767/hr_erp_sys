@@ -6,9 +6,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   @users = User.all
   # end
   #
+  # with only name or email search
+  # def index
+  #   if params[:query].present?
+  #     @users = User.where("name ILIKE :query OR email ILIKE :query", query: "%#{params[:query]}%")
+
+  #   else
+  #     @users = User.all
+  #   end
+  # end
+  #
+  #  #with name,email and role based search
   def index
     if params[:query].present?
-      @users = User.where("name ILIKE :query OR email ILIKE :query", query: "%#{params[:query]}%")
+      query = "%#{params[:query]}%"
+      @users = User.joins(:roles)
+                 .where("users.name ILIKE :query OR users.email ILIKE :query OR roles.name ILIKE :query", query: query)
+                 .distinct
 
     else
       @users = User.all
