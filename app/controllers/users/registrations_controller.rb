@@ -1,6 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!
-  before_action :restrict_sign_up
   layout :select_layout
 
   # def index
@@ -28,6 +27,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       @users = User.all
     end
+  end
+
+
+  def new
+    redirect_to new_user_session_path
   end
 
   # GET /users/new (custom admin form)
@@ -91,11 +95,7 @@ end
     end
   end
 
-  def restrict_sign_up
-    unless user_signed_in? && current_user.has_role?(:admin)
-      redirect_to root_path, alert: "Please enter correct credentials"
-    end
-  end
+
 
   protected
 

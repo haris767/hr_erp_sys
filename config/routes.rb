@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   registrations: "users/registrations",
   sessions: "users/sessions"
 }
-
+root "pages#home"
 devise_scope :user do
-  root to: "users/registrations#index"
   get "admin/users", to: "users/registrations#index", as: :admin_user_list
 
   get "profile", to: "users/registrations#show", as: :user_profile

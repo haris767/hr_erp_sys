@@ -4,7 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :user_roles
+  has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
   accepts_nested_attributes_for :user_roles
+
+  def admin?
+    roles.exists?(name: "admin")
+  end
 end
