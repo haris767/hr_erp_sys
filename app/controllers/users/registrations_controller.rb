@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!
+  before_action :restrict_sign_up
   layout :select_layout
 
   # def index
@@ -87,6 +88,12 @@ end
       "signup" # for signup
     else
       "application" # ✅ Use AdminLTE layout for everything else
+    end
+  end
+
+  def restrict_sign_up
+    unless user_signed_in? && current_user.has_role?(:admin)
+      redirect_to root_path, alert: "Please enter correct credentials"
     end
   end
 
