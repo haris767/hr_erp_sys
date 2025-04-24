@@ -20,6 +20,12 @@
       <h3 class="card-title">User List</h3>
       <% if user_signed_in? %>
       <%= link_to "➕ Create New User", new_user_by_admin_path, class: "btn btn-success btn-sm" %>
+      <div class="d-flex justify-content-end mb-3">
+      <%= link_to roles_path, class: "btn btn-app bg-primary text-white" do %>
+        <i class="fas fa-user-shield"></i> Manage Roles
+      <% end %>
+      </div>
+
       <%end%>
     </div>
 

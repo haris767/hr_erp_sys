@@ -17,4 +17,8 @@ devise_scope :user do
   get "users/:id/edit", to: "users/registrations#edit", as: "edit_user"
   put "users/:id/update", to: "users/registrations#update", as: "update_user"
 end
+
+
+
+resources :roles
 end
