@@ -10,14 +10,78 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_23_195726) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_28_090015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "asset_details", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.string "brand"
+    t.string "model"
+    t.string "serial_number"
+    t.date "assigned_date"
+    t.date "returned_date"
+    t.string "status", default: "assigned"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_asset_details_on_user_id"
+  end
+
+  create_table "bank_details", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "salary_structure"
+    t.string "payment_method"
+    t.string "bank_name"
+    t.string "bank_account_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_bank_details_on_user_id"
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "job_employments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "job_title"
+    t.string "employment_type"
+    t.date "hire_date"
+    t.string "work_location"
+    t.string "manager_name"
+    t.string "job_status"
+    t.string "blood_group"
+    t.string "employee_service"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_job_employments_on_user_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "user_infos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "father_name"
+    t.string "national_id"
+    t.date "dob"
+    t.integer "gender", default: 1
+    t.integer "grade", default: 1
+    t.string "phone", limit: 11
+    t.text "address"
+    t.string "personal_number", limit: 11
+    t.string "company_number", limit: 11
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "employee_code"
+    t.index ["user_id"], name: "index_user_infos_on_user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
@@ -39,10 +103,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_23_195726) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.boolean "active"
+    t.bigint "department_id"
+    t.index ["department_id"], name: "index_users_on_department_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "asset_details", "users"
+  add_foreign_key "bank_details", "users"
+  add_foreign_key "job_employments", "users"
+  add_foreign_key "user_infos", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
+  add_foreign_key "users", "departments"
 end
