@@ -55,9 +55,11 @@
                       </td>
                       <td><%= user.created_at.to_date %></td>
                       <td>
+                       <% if user_signed_in? %>
                         <%= link_to "Edit", edit_user_path(user), class: "btn btn-warning btn-sm mb-1" %>
                         <%= link_to "Profile", user_profile_path, class: "btn btn-info btn-sm mb-1" %>
                         <%= button_to "Delete", destroy_user_account_path(user.id), method: :delete, data: { confirm: "Are you sure?" },form: { style: "display:inline;" }, class: "btn btn-danger btn-sm" %>
+                      <% end %>
                       </td>
                     </tr>
                   <% end %>

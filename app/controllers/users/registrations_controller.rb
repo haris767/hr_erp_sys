@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [ :destroy ]
   layout :select_layout
 
   # def index
@@ -49,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if @user.save
 
 
-      redirect_to admin_user_list_path, notice: "User created successfully."
+       redirect_to admin_user_list_path, notice: "User created successfully."
 
     else
       render :new_user
@@ -60,7 +60,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /profile
   def show
-    @user = current_user
+     @user = current_user
   end
 
 # GET /users/:id/edit_user (custom admin edit)
@@ -75,12 +75,15 @@ end
 # PUT /users/:id/update_user (custom admin update)
 def update
   @user = User.find(params[:id])
+
   if @user.update(sign_up_params)
     redirect_to admin_user_list_path, notice: "User updated successfully."
   else
     render :edit
   end
 end
+
+
 
   # DELETE /users
   def destroy
@@ -115,17 +118,7 @@ end
     params.require(:user).permit(:email, :password, :password_confirmation, :department_id, :name, :active, role_ids: [],
     user_info_attributes: [ :id, :father_name, :gender, :grade, :national_id, :dob, :phone, :personal_number, :company_number, :employee_code, :address ],
     job_employments_attributes: [ :employment_type, :job_title, :hire_date, :work_location, :manager_name, :job_status, :blood_group, :employee_service ],
-    assets_details_attributes: [ :id, :name, :model, :brand, :serial_number, :assigned_date, :return_date, :status, :notes ],
-    bank_details_attributes: [ :id, :salary_structure, :payment_method, :bank_name, :bank_account_number, :payroll_group_id, :_destroy ],
-    )
-  end
-
-  # Allow additional fields for account update
-  def account_update_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :department_id, :current_password, :name, :active, role_ids: [],
-    user_info_attributes: [ :id, :father_name, :gender, :grade, :national_id, :dob, :phone, :personal_number, :company_number, :employee_code, :address ],
-    job_employments_attributes: [ :employment_type, :job_title, :hire_date, :work_location, :manager_name, :job_status, :blood_group, :employee_service ],
-    assets_details_attributes: [ :id, :name, :model, :brand, :serial_number, :assigned_date, :return_date, :status, :notes ],
+    asset_details_attributes: [ :id, :name, :model, :brand, :serial_number, :assigned_date, :returned_date, :status, :notes ],
     bank_details_attributes: [ :id, :salary_structure, :payment_method, :bank_name, :bank_account_number, :payroll_group_id, :_destroy ],
     )
   end
