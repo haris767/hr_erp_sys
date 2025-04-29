@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+  <div class="breadcrumb">
+    <%= link_to "Home", root_path, class: "text-decoration-none" %> /
+    <span>Dashboard</span>
+  </div>
+  <div><%= Time.current.strftime("%a, %d %b %Y") %></div>
+</div>
+
+<div class="d-flex justify-content-end mb-4">
+  <div class="d-flex flex-wrap gap-2">
+    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-primary active" %>
+    <%= link_to "Employee Dashboard", employee_dashboard_path, class: "btn btn-outline-primary" %>
+  </div>
+</div>
+
+ <div class="row">
+  <div class="col-md-3">
+    <div class="card text-white bg-primary mb-3">
+       <%= link_to admin_user_list_path, class: "card bg-primary text-white mx-2", style: "min-width: 150px;" do %>
+      <div class="card-body">
+        <h5 class="card-title">Employees</h5>
+        <p class="card-text"><%= @total_employees %></p>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-warning mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Companies</h5>
+        <p class="card-text"><%= @total_companies %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-danger mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Leaves</h5>
+        <p class="card-text"><%= @total_leaves %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-success mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Salary</h5>
+        <p class="card-text">$<%= number_to_currency(User.sum(:salary), unit: "", precision: 1) rescue "0" %>M</p>
+      </div>
+    </div>
+  </div>
+</div>

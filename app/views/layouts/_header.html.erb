@@ -8,11 +8,7 @@
       <li class="nav-item d-none d-sm-inline-block">
         <%= link_to 'Home', root_path,class:"nav-link" %>
       </li>
-       <% if user_signed_in? %>
-        <li class="nav-item d-none d-sm-inline-block">
-        <%= link_to "Employees", admin_user_list_path,class:"nav-link" %>
-      </li>
-      <%end%>
+      
     </ul>
     
     <!-- Right navbar links -->

@@ -4,7 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   layout :layout_by_resource
-
+  # Redirect to sign-in page after logout
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_path
+  end
   private
 
   def layout_by_resource

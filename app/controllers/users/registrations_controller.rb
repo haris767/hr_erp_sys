@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_user!, only: [ :destroy ]
+  before_action :authenticate_user!
   layout :select_layout
 
   # def index
@@ -15,18 +15,48 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #     @users = User.all
   #   end
   # end
-  #
+  def admin_dashboard
+    if current_user.roles.exists?(name: "Admin")
+      # Admin dashboard data
+      @total_employees = User.count
+      @total_companies = Company.count rescue 0
+      @total_leaves = Leave.count rescue 0
+      # @total_salary = Payroll.sum(:net_pay) rescue 0
+
+      # For charts (example setup)
+      # @salary_by_month = Payroll.group_by_month(:created_at).sum(:net_pay)
+      @employee_by_unit = User.group(:department_id).count
+      render "dashboards/admin_dashboard"
+      # redirect_to admin_user_list_path
+    else
+      set_employee_dashboard_data
+      render "dashboards/employee_dashboard"
+    end
+  end
+
+  def employee_dashboard
+      if current_user
+        @user = current_user
+        # Employee dashboard data (you can customize this more)
+        @leaves_taken = current_user.leaves.count rescue 0
+        @latest_salary = current_user.payrolls.last&.net_pay rescue 0
+        render "dashboards/employee_dashboard"
+      else
+        redirect_to new_user_session_path
+      end
+  end
+
   #  #with name,email and role based search
   def index
-    if params[:query].present?
-      query = "%#{params[:query]}%"
-      @users = User.joins(:roles)
-                 .where("users.name ILIKE :query OR users.email ILIKE :query OR roles.name ILIKE :query", query: query)
-                 .distinct
+      if params[:query].present?
+        query = "%#{params[:query]}%"
+        @users = User.joins(:roles)
+                  .where("users.name ILIKE :query OR users.email ILIKE :query OR roles.name ILIKE :query", query: query)
+                  .distinct
 
-    else
-      @users = User.all
-    end
+      else
+        @users = User.all
+      end
   end
 
 
@@ -109,7 +139,11 @@ end
       "application" # ✅ Use AdminLTE layout for everything else
     end
   end
-
+  def set_employee_dashboard_data
+    @user = current_user
+    @leaves_taken = current_user.leaves.count rescue 0
+    @latest_salary = current_user.payrolls.last&.net_pay rescue 0
+  end
 
 
   protected

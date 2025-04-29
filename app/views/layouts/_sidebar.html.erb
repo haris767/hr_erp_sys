@@ -31,46 +31,135 @@
           </div>
         </div>
       </div>
-
+      <% if user_signed_in? %>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Starter Pages
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive Page</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <!-- Dashboard -->
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-desktop"></i>
+        <p>
+          Dashboard
+          <i class="right fas fa-angle-down"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <%if current_user.roles.exists?(name: "Admin")%>
+       <li class="nav-item">
+        <%= link_to admin_dashboard_path, class: "nav-link active" do %>
+          <i class="far fa-dot-circle nav-icon"></i>
+          <p>Admin Dashboard</p>
+        <% end %>
+      </li>
+      <%end%>
+        <li class="nav-item">
+          <%= link_to employee_dashboard_path, class: "nav-link active" do %>
+            <i class="far fa-dot-circle nav-icon"></i>
+            <p>Employee Dashboard</p>
+         <% end %>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Employees -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-users"></i>
+        <p>Employees <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Projects -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-box"></i>
+        <p>Projects <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Attendance -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-book"></i>
+        <p>Attendance <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Clients -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-user"></i>
+        <p>Clients <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Leave Management -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-clipboard"></i>
+        <p>Leave Management <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Holidays -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-headphones"></i>
+        <p>Holidays <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Accounts -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-book-open"></i>
+        <p>Accounts <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Departments -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-building"></i>
+        <p>Departments <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Payroll -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-dollar-sign"></i>
+        <p>Payroll <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Job -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-project-diagram"></i>
+        <p>Job <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Consultancy -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-cube"></i>
+        <p>Consultancy <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+
+    <!-- Widgets -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-feather"></i>
+        <p>Widgets <i class="right fas fa-plus"></i></p>
+      </a>
+    </li>
+  </ul>
+</nav>
+<%end%>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

@@ -1,3 +1,5 @@
+<% if user_signed_in? %>
+
 <h2>All Users</h2>
 
 <div class="container-fluid">
@@ -21,13 +23,13 @@
       <div class="col-12">
         <div class="card w-100">
           <div class="card-header d-flex justify-content-start align-items-center flex-wrap gap-2">
-          <% if user_signed_in? %>
+          
             <%= link_to "➕ Create New User", new_user_by_admin_path, class: "btn btn-success btn-sm mb-2 mb-md-0 me-2" %>
 
             <%= link_to 'Manage Roles', roles_path, class: "btn btn-primary" %>
                
             <%= link_to 'Departments', departments_path, class: 'btn btn-primary' %>
-          <% end %>
+          
         </div>
 
 
@@ -76,3 +78,8 @@
     </div>
   <% end %>
 </div>
+
+<!-- Add charts here using Chartkick or ApexCharts -->
+<%else%>
+<p>please login <%= link_to "Log in", new_user_session_path, class:'js-login block px-4 py-2 text-sm text-gray-700', role:"menuitem", tabindex:"-1" %></p>
+<%end%>

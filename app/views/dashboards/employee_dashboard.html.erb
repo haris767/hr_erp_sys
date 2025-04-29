@@ -1,0 +1,32 @@
+<div class="row text-center mb-4">
+  <div class="col-md-6">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <h5>Leaves Taken</h5>
+        <h2><%= @leaves_taken %></h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card bg-secondary text-white">
+      <div class="card-body">
+        <h5>Latest Salary</h5>
+        <h2>$<%= number_to_currency(@latest_salary, precision: 2, unit: '') %></h2>
+      </div>
+    </div>
+  </div>
+</div>
+<h2>Welcome, <%= @user.name %>!</h2>
+<p>Your role: <%= @user.roles.map(&:name).join(', ') %></p>
+
+<div class="card mt-3">
+  <div class="card-body">
+    <h5>Your Info</h5>
+    <ul>
+      <li>Email: <%= @user.email %></li>
+      <li>Employee Code: <%= @user.user_info&.employee_code %></li>
+      <li>Phone: <%= @user.user_info&.phone %></li>
+      <!-- Add more fields as needed -->
+    </ul>
+  </div>
+</div>
