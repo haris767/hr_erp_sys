@@ -2,19 +2,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!
   layout :select_layout
 
-  # def index
-  #   @users = User.all
-  # end
-  #
-  # with only name or email search
-  # def index
-  #   if params[:query].present?
-  #     @users = User.where("name ILIKE :query OR email ILIKE :query", query: "%#{params[:query]}%")
-
-  #   else
-  #     @users = User.all
-  #   end
-  # end
   def admin_dashboard
     if current_user.roles.exists?(name: "Admin")
       # Admin dashboard data
