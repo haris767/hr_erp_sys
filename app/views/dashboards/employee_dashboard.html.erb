@@ -1,5 +1,5 @@
 <div class="row text-center mb-4">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="card bg-info text-white">
       <div class="card-body">
         <h5>Leaves Taken</h5>
@@ -7,7 +7,15 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <h5>Attendance</h5>
+        <h2><%= @attendence %></h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
     <div class="card bg-secondary text-white">
       <div class="card-body">
         <h5>Latest Salary</h5>
@@ -16,6 +24,7 @@
     </div>
   </div>
 </div>
+
 <h2>Welcome, <%= @user.name %>!</h2>
 <p>Your role: <%= @user.roles.map(&:name).join(', ') %></p>
 

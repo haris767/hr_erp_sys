@@ -3,21 +3,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout :select_layout
 
   def admin_dashboard
-    if current_user.roles.exists?(name: "Admin")
-      # Admin dashboard data
-      @total_employees = User.count
-      @total_companies = Company.count rescue 0
-      @total_leaves = Leave.count rescue 0
-      # @total_salary = Payroll.sum(:net_pay) rescue 0
+    if current_user
+      if current_user.roles.exists?(name: "Admin")
+        # Admin dashboard data
+        @total_employees = User.count
+        @total_attendencies = Attendence.count rescue 0
+        @total_leaves = Leave.count rescue 0
+        # @total_salary = Payroll.sum(:net_pay) rescue 0
 
-      # For charts (example setup)
-      # @salary_by_month = Payroll.group_by_month(:created_at).sum(:net_pay)
-      @employee_by_unit = User.group(:department_id).count
-      render "dashboards/admin_dashboard"
-      # redirect_to admin_user_list_path
+        # For charts (example setup)
+        # @salary_by_month = Payroll.group_by_month(:created_at).sum(:net_pay)
+        @employee_by_unit = User.group(:department_id).count
+        render "dashboards/admin_dashboard"
+        # redirect_to admin_user_list_path
+      else
+        set_employee_dashboard_data
+        render "dashboards/employee_dashboard"
+      end
     else
-      set_employee_dashboard_data
-      render "dashboards/employee_dashboard"
+      redirect_to new_user_session_path
     end
   end
 
@@ -26,6 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @user = current_user
         # Employee dashboard data (you can customize this more)
         @leaves_taken = current_user.leaves.count rescue 0
+        @attendence = current_user.attendencies.count rescue 0
         @latest_salary = current_user.payrolls.last&.net_pay rescue 0
         render "dashboards/employee_dashboard"
       else
@@ -137,7 +142,7 @@ end
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation, :department_id, :name, :active, role_ids: [],
-    user_info_attributes: [ :id, :father_name, :gender, :grade, :national_id, :dob, :phone, :personal_number, :company_number, :employee_code, :address ],
+    user_info_attributes: [ :id, :father_name, :gender, :grade, :national_id, :dob, :phone, :personal_number, :company_number, :employee_code, :address, :profile_picture ],
     job_employments_attributes: [ :employment_type, :job_title, :hire_date, :work_location, :manager_name, :job_status, :blood_group, :employee_service ],
     asset_details_attributes: [ :id, :name, :model, :brand, :serial_number, :assigned_date, :returned_date, :status, :notes ],
     bank_details_attributes: [ :id, :salary_structure, :payment_method, :bank_name, :bank_account_number, :payroll_group_id, :_destroy ],

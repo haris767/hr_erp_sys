@@ -1,0 +1,57 @@
+<%= form_with(model: attendance, url: attendance_attendances_path, local: true) do |f| %>
+
+
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Add New Attendance</h3>
+    </div>
+    <div class="card-body">
+
+      <!-- User Dropdown -->
+      <div class="form-group">
+        <%= f.label :user_id, 'Select User' %>
+        <%= f.collection_select :user_id, User.all, :id, :name, { prompt: 'Choose a user' }, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :attendance_date, class: "control-label" %>
+        <%= f.date_field :attendance_date, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :check_in, class: "control-label" %>
+        <%= f.datetime_local_field :check_in, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :check_out, class: "control-label" %>
+        <%= f.datetime_local_field :check_out, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :working_hours, class: "control-label" %>
+        <%= f.number_field :working_hours, step: 0.01, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :overtime_hours, class: "control-label" %>
+        <%= f.number_field :overtime_hours, step: 0.01, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :status, class: "control-label" %>
+        <%= f.select :status, options_for_select(['Present', 'Absent', 'Leave', 'Holiday'], attendance.status), {}, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :payroll_processed, class: "control-label" %>
+        <%= f.check_box :payroll_processed, {}, true, false %>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <%= f.submit 'Save Attendance', class: "btn btn-primary" %>
+      <%= link_to 'Back to Attendance List', attendance_attendances_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+<% end %>

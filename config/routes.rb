@@ -18,7 +18,9 @@ devise_scope :user do
   get "employee_dashboard", to: "users/registrations#employee_dashboard", as: :employee_dashboard
 end
 
-
+namespace :attendance do
+  resources :attendances
+end
 
 resources :roles
 resources :departments

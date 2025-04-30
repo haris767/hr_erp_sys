@@ -26,10 +26,12 @@
   </div>
   <div class="col-md-3">
     <div class="card text-white bg-warning mb-3">
+      <%= link_to attendance_attendances_path, class: "text-white mx-2" do%>
       <div class="card-body">
-        <h5 class="card-title">Companies</h5>
-        <p class="card-text"><%= @total_companies %></p>
+        <h5 class="card-title">Attendencies</h5>
+        <p class="card-text"><%= @total_attendencies %></p>
       </div>
+      <%end%>
     </div>
   </div>
   <div class="col-md-3">

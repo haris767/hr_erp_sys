@@ -1,6 +1,6 @@
 class UserInfo < ApplicationRecord
   belongs_to :user
-
+  has_one_attached :profile_picture
   enum :gender, { male: 1, female: 2, other: 3 }
   enum :grade, { a: 1, b: 2, c: 3, d: 4 }
 

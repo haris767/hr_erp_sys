@@ -16,6 +16,11 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :asset_details, allow_destroy: true
   has_many :bank_details, dependent: :destroy
   accepts_nested_attributes_for :bank_details, allow_destroy: true
+
+  # modules associations
+  has_many :attendances, class_name: "Attendance::Attendance", dependent: :destroy
+
+
   def active_for_authentication?
     super && active?
   end
