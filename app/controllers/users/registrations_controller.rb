@@ -7,7 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if current_user.roles.exists?(name: "Admin")
         # Admin dashboard data
         @total_employees = User.count
-        @total_attendencies = Attendence.count rescue 0
+        @total_attendances = Attendance::Attendance.count rescue 0
         @total_leaves = Leave.count rescue 0
         # @total_salary = Payroll.sum(:net_pay) rescue 0
 
@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @user = current_user
         # Employee dashboard data (you can customize this more)
         @leaves_taken = current_user.leaves.count rescue 0
-        @attendence = current_user.attendencies.count rescue 0
+        @total_attendances = Attendance::Attendance.for_user(current_user.id).count
         @latest_salary = current_user.payrolls.last&.net_pay rescue 0
         render "dashboards/employee_dashboard"
       else
