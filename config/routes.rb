@@ -19,8 +19,22 @@ devise_scope :user do
 end
 
 namespace :attendance do
-  resources :attendances
+  resources :shifts  # 👈 YOU MUST ADD THIS
+  resources :attendances do
+    collection do
+      get :shift_report
+      get :overtime_analysis
+    end
+  end
 end
+resources :users do
+  get :shifts, on: :member # get shifts of a specific user
+end
+
+namespace :attendance do
+  resources :user_shifts # create edit of user assigned shifts
+end
+
 
 resources :roles
 resources :departments

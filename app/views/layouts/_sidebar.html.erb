@@ -64,6 +64,7 @@
     </li>
 
     <!-- Employees -->
+    <%if current_user.roles.exists?(name: "Admin")%>
     <li class="nav-item menu-open">
       <a href="#" class="nav-link active">
         <i class="nav-icon fas fa-users"></i>
@@ -73,33 +74,44 @@
         </p>
       </a>
       <ul class="nav nav-treeview">
-        <%if current_user.roles.exists?(name: "Admin")%>
+        
        <li class="nav-item">
         <%= link_to admin_user_list_path, class: "nav-link active" do %>
           <i class="far fa-dot-circle nav-icon"></i>
           <p>Employees List</p>
         <% end %>
       </li>
-      <%end%>
-        <li class="nav-item">
-          <%= link_to employee_dashboard_path, class: "nav-link active" do %>
-            <i class="far fa-dot-circle nav-icon"></i>
-            <p>Dashboard</p>
-         <% end %>
-        </li>
       </ul>
     </li>
-
-    
-
-    <!-- Projects -->
-    <li class="nav-item">
-      <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-box"></i>
-        <p>Projects <i class="right fas fa-plus"></i></p>
+     <%end%>
+   <!-----------Assign Shifts--------->
+   <%if current_user.roles.exists?(name: "Admin")%> 
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-user-clock"></i>
+        <p>
+          Assign Shifts
+          <i class="right fas fa-angle-down"></i>
+        </p>
       </a>
+      <ul class="nav nav-treeview">
+        <%if current_user.roles.exists?(name: "Admin")%>
+       <li class="nav-item">
+        <%= link_to attendance_user_shifts_path, class: "nav-link active" do %>
+          <i class="far fa-dot-circle nav-icon"></i>
+          <p>Employees shifts</p>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to shift_report_attendance_attendances_path, class: "nav-link active" do %>
+          <i class="nav-icon fas fa-clock"></i>
+          <p>Shift-wise Report</p>
+        <% end %>
+      </li>
+      <%end%>
+      </ul>
     </li>
-
+    <%end%>
     <!-- Attendance -->
     <%if current_user.roles.exists?(name: "Admin")%>
     <li class="nav-item menu-open">
@@ -115,16 +127,15 @@
        <li class="nav-item">
         <%= link_to attendance_attendances_path, class: "nav-link active" do %>
           <i class="far fa-dot-circle nav-icon"></i>
-          <p>Attendance List</p>
+          <p>Attendances</p>
         <% end %>
       </li>
-      
-        <li class="nav-item">
-          <%= link_to new_attendance_attendance_path, class: "nav-link active" do %>
-            <i class="far fa-dot-circle nav-icon"></i>
-            <p>New Attendance</p>
-         <% end %>
-        </li>
+      <li class="nav-item">
+        <%= link_to overtime_analysis_attendance_attendances_path, class: "nav-link active" do %>
+          <i class="far fa-dot-circle nav-icon"></i>
+          <p>Overtime Analysis</p>
+        <% end %>
+      </li>
       </ul>
     </li>
     <%end%>

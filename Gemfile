@@ -66,3 +66,7 @@ end
 
 gem "devise", "~> 4.9"
 gem "wicked"
+gem "chartkick"
+gem "groupdate" # Optional but useful for date-based grouping
+gem "prawn"
+gem "prawn-table"  # Required for .table method
