@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_01_143517) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_02_153939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -69,6 +69,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_01_143517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "shift_id"
+    t.boolean "late_status", default: false
     t.index ["shift_id"], name: "index_attendance_attendances_on_shift_id"
     t.index ["user_id"], name: "index_attendance_attendances_on_user_id"
   end

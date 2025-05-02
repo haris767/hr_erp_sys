@@ -1,7 +1,6 @@
 class Attendance::AttendancesController < ApplicationController # namespace use controller/attendance/attendances_controller.rb
   before_action :authenticate_user!
   before_action :set_attendance, only: %i[show edit update destroy]
-
   # def index
   #   @attendances = Attendance::Attendance.includes(:user).order(attendance_date: :desc)
   # end

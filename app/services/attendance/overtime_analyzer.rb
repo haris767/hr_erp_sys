@@ -15,12 +15,11 @@ module Attendance
           users.id,
           users.name,
           SUM(
-            EXTRACT(EPOCH FROM (attendance_attendances.check_out - attendance_attendances.check_in)) / 3600.0 -
-            (
-              (EXTRACT(EPOCH FROM (attendance_shifts.end_time - attendance_shifts.start_time)) / 3600.0)
-              - attendance_shifts.break_hours
-            )
-          ) AS total_overtime
+              GREATEST(
+                EXTRACT(EPOCH FROM (attendance_attendances.check_out - attendance_shifts.end_time)),
+                0
+              ) / 3600.0
+            ) AS total_overtime
         ")
         .order("total_overtime DESC")
         .limit(limit)

@@ -49,7 +49,8 @@
           <th>Check Out</th>
           <th>Hours</th>
           <th>Shift</th>
-          <th>Overtime Hours</th>
+          <th>Overtime Hours</th>  
+          <th>Late Status</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
@@ -60,11 +61,16 @@
             <td><%= attendance.id %></td>
             <td><%= attendance.user.name rescue 'N/A' %></td>
             <td><%= attendance.attendance_date %></td>
-            <td><%= attendance.check_in&.strftime("%H:%M") %></td>
-            <td><%= attendance.check_out&.strftime("%H:%M") %></td>
+            <td><%= attendance.check_in&.strftime("%I:%M %p") %></td>
+            <td><%= attendance.check_out&.strftime("%I:%M %p") %></td>
             <td><%= attendance.working_hours %></td>
             <td><%= attendance.shift&.name || "No Shift Assigned" %></td>
-            <td><%= attendance.overtime_hours %></td>
+            <td><%= number_with_precision(attendance.overtime_hours, precision: 2) %> hrs</td>
+            <% if attendance.late_status %>
+              <td class="text-danger fw-bold">Late</td>
+              <% else %>
+                <td class="text-success">On Time</td>
+              <% end %>
             <td><%= attendance.status %></td>
             <td>
               <%= link_to 'Show', attendance_attendance_path(attendance), class: "btn btn-xs btn-info" %>

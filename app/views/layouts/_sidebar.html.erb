@@ -103,6 +103,13 @@
         <% end %>
       </li>
       <li class="nav-item">
+        <%= link_to attendance_shifts_path, class: "nav-link active" do %>
+          <i class="far fa-dot-circle nav-icon"></i>
+          <p>Shifts List</p>
+        <% end %>
+      </li>
+      
+      <li class="nav-item">
         <%= link_to shift_report_attendance_attendances_path, class: "nav-link active" do %>
           <i class="nav-icon fas fa-clock"></i>
           <p>Shift-wise Report</p>
