@@ -22,15 +22,14 @@
         <%= f.label :attendance_date, class: "control-label" %>
         <%= f.date_field :attendance_date, class: "form-control" %>
       </div>
-
       <div class="form-group">
-        <%= f.label :check_in, class: "control-label" %>
-        <%= f.datetime_local_field :check_in, class: "form-control" %>
+        <%= f.label :check_in, "Check-in", class: "control-label" %>
+        <%= f.time_field :check_in, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :check_out, class: "control-label" %>
-        <%= f.datetime_local_field :check_out, class: "form-control" %>
+        <%= f.label :check_out, "Check-out", class: "control-label" %>
+        <%= f.time_field :check_out, class: "form-control" %>
       </div>
 
       <div class="form-group">

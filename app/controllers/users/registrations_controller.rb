@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!
   layout :select_layout
-
+   MAX_ALLOWED_LATES = 3 # constant
   def admin_dashboard
     if current_user
       if current_user.roles.exists?(name: "Admin")
@@ -33,8 +33,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @user = current_user
         # Employee dashboard data (you can customize this more)
         @leaves_taken = current_user.leaves.count rescue 0
-        @total_attendances = Attendance::Attendance.for_user(current_user.id).count
+        @total_attendances = @user.attendances.count
         @latest_salary = current_user.payrolls.last&.net_pay rescue 0
+
+        # ⚠️ Lateness Info
+
+        @late_count = @user.attendances.where(late_status: true).count
+        @late_chances_left = [ MAX_ALLOWED_LATES - @late_count, 0 ].max
+        @late_warning = @late_chances_left <= 1
+
         render "dashboards/employee_dashboard"
       else
         redirect_to new_user_session_path

@@ -10,8 +10,8 @@
   <div class="col-md-4">
     <div class="card bg-info text-white">
       <div class="card-body">
-        <h5>Attendance</h5>
-        <h2><%= @total_attendances %></h2>
+        <h5>Attendances</h5>
+        <h2><%= @user.attendances.count %></h2>
       </div>
     </div>
   </div>
@@ -27,6 +27,20 @@
 
 <h2>Welcome, <%= @user.name %>!</h2>
 <p>Your role: <%= @user.roles.map(&:name).join(', ') %></p>
+<%
+  max_allowed_lates = 3
+  late_count = @user.attendances.where(late_status: true).count
+  late_chances_left = [max_allowed_lates - late_count, 0].max
+%>
+
+<% if late_chances_left < max_allowed_lates %>
+  <div class="alert alert-warning">
+    ⚠️ You have <strong><%= late_chances_left %></strong> late chance(s) left before salary deduction.
+  </div>
+<% end %>
+
+
+
 
 <div class="card mt-3">
   <div class="card-body">

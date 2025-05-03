@@ -19,7 +19,7 @@ devise_scope :user do
 end
 
 namespace :attendance do
-  resources :shifts  # 👈 YOU MUST ADD THIS
+  resources :shifts  # YOU MUST ADD THIS
   resources :attendances do
     collection do
       get :shift_report

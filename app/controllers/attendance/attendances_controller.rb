@@ -35,6 +35,9 @@ class Attendance::AttendancesController < ApplicationController # namespace use 
   def create
     @attendance = Attendance::Attendance.new(attendance_params)
     if @attendance.save
+
+      # Call Attendance::LateComingAnalyzer after attendance is saved
+      Attendance::LateComingAnalyzer.new(@attendance).analyze
       redirect_to attendance_attendance_path(@attendance), notice: "Attendance created successfully."
     else
       render :new
@@ -46,6 +49,10 @@ class Attendance::AttendancesController < ApplicationController # namespace use 
 
   def update
     if @attendance.update(attendance_params)
+
+      # Call Attendance::LateComingAnalyzer after attendance is saved
+      Attendance::LateComingAnalyzer.new(@attendance).analyze
+
       redirect_to attendance_attendance_path(@attendance), notice: "Attendance updated successfully."
     else
       render :edit
