@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_02_153939) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_04_163408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -127,6 +127,38 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_02_153939) do
     t.index ["user_id"], name: "index_job_employments_on_user_id"
   end
 
+  create_table "leave_balances", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "leave_type_id", null: false
+    t.decimal "total"
+    t.decimal "remaining"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["leave_type_id"], name: "index_leave_balances_on_leave_type_id"
+    t.index ["user_id"], name: "index_leave_balances_on_user_id"
+  end
+
+  create_table "leave_types", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "paid", default: false
+  end
+
+  create_table "leaves", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "leave_type_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.text "reason"
+    t.string "status", default: "Pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["leave_type_id"], name: "index_leaves_on_leave_type_id"
+    t.index ["user_id"], name: "index_leaves_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -184,6 +216,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_02_153939) do
   add_foreign_key "attendance_user_shifts", "users"
   add_foreign_key "bank_details", "users"
   add_foreign_key "job_employments", "users"
+  add_foreign_key "leave_balances", "leave_types"
+  add_foreign_key "leave_balances", "users"
+  add_foreign_key "leaves", "leave_types"
+  add_foreign_key "leaves", "users"
   add_foreign_key "user_infos", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"

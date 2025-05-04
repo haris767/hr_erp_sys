@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Employee</th>
+    <th>Leave Type</th>
+    <th>Total</th>
+    <th>Remaining</th>
+  </tr>
+  <% @balances.each do |b| %>
+    <tr>
+      <td><%= b.user.name %></td>
+      <td><%= b.leave_type.name %></td>
+      <td><%= b.total %></td>
+      <td><%= b.remaining %></td>
+    </tr>
+  <% end %>
+</table>

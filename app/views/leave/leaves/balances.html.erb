@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-header bg-info text-white">
+    <h3 class="card-title">Employee Leave Balances</h3>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Employee Name</th>
+          <th>Leave Type</th>
+          <th>Total Allocated</th>
+          <th>Used</th>
+          <th>Remaining</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @leave_balances.each do |balance| %>
+          <tr>
+            <td><%= balance.user.full_name %></td>
+            <td><%= balance.leave_type.name %></td>
+            <td><%= balance.total_allocated %></td>
+            <td><%= balance.used_leaves %></td>
+            <td><%= balance.remaining_leaves %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

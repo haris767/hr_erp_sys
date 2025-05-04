@@ -25,6 +25,7 @@ module HrErpSys
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     # config/application.rb
+    config.active_job.queue_adapter = :sidekiq
     config.assets.paths << Rails.root.join("vendor/assets")
     # config.assets.paths << Rails.root.join("vendor/assets/admin-lte/dist/img")
     config.assets.paths << Rails.root.join("vendor/assets/admin-lte/plugins/fontawesome-free")

@@ -27,6 +27,7 @@ namespace :attendance do
     end
   end
 end
+
 resources :users do
   get :shifts, on: :member # get shifts of a specific user
 end
@@ -38,4 +39,17 @@ end
 
 resources :roles
 resources :departments
+
+namespace :leave do
+  resources :leaves do
+    collection do
+      get :balances
+    end
+    member do
+      post :approve
+      post :reject
+    end
+  end
+  resources :leave_types
+end
 end

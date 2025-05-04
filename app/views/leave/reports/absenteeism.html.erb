@@ -1,0 +1,10 @@
+<table>
+  <tr><th>Employee</th><th>Days Absent</th><th>Absenteeism %</th></tr>
+  <% @data.each do |entry| %>
+    <tr>
+      <td><%= entry[:user].name %></td>
+      <td><%= entry[:days] %></td>
+      <td><%= entry[:absenteeism] %>%</td>
+    </tr>
+  <% end %>
+</table>

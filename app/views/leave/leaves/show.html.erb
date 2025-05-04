@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-header bg-primary text-white">
+    <h3 class="card-title">Leave Request Details</h3>
+  </div>
+
+  <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-4">Employee Name</dt>
+      <dd class="col-sm-8"><%= @leave.user.name %></dd>
+
+      <dt class="col-sm-4">Leave Type</dt>
+      <dd class="col-sm-8"><%= @leave.leave_type.name %></dd>
+
+      <dt class="col-sm-4">Start Date</dt>
+      <dd class="col-sm-8"><%= @leave.start_date.strftime('%d %B %Y') %></dd>
+
+      <dt class="col-sm-4">End Date</dt>
+      <dd class="col-sm-8"><%= @leave.end_date.strftime('%d %B %Y') %></dd>
+
+      <dt class="col-sm-4">Total Days</dt>
+      <dd class="col-sm-8"><%= (@leave.end_date - @leave.start_date).to_i + 1 %> day(s)</dd>
+
+      <dt class="col-sm-4">Status</dt>
+      <dd class="col-sm-8">
+        <span class="badge 
+          <%= case @leave.status
+              when "Approved" then 'badge-success'
+              when "Rejected" then 'badge-danger'
+              else 'badge-warning'
+          end %>">
+          <%= @leave.status %>
+        </span>
+      </dd>
+
+      <dt class="col-sm-4">Reason</dt>
+      <dd class="col-sm-8"><%= @leave.reason.presence || "—" %></dd>
+    </dl>
+  </div>
+
+  <div class="card-footer">
+    <%= link_to 'Back', leave_leaves_path, class: "btn btn-secondary" %>
+    <% if @leave.status == "Pending" %>
+      <%= link_to 'Edit', edit_leave_leave_path(@leave), class: "btn btn-warning" %>
+      <%= link_to 'Delete', leave_leave_path(@leave), method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>

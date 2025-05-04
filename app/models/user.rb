@@ -23,6 +23,10 @@ class User < ApplicationRecord
   has_many :user_shifts, class_name: "Attendance::UserShift"
   has_many :shifts, through: :user_shifts, class_name: "Attendance::Shift"
 
+  # module leave
+
+  has_many :leaves, class_name: "Leave::Leave", dependent: :destroy
+  has_many :leave_balances, class_name: "Leave::LeaveBalance", dependent: :destroy
 
   def active_for_authentication?
     super && active?

@@ -70,3 +70,6 @@ gem "chartkick"
 gem "groupdate" # Optional but useful for date-based grouping
 gem "prawn"
 gem "prawn-table"  # Required for .table method
+gem "business_time"
+# gem "sidekiq"
+# gem "sidekiq-cron" # For scheduling recurring jobs

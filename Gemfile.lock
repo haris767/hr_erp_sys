@@ -87,6 +87,9 @@ GEM
     brakeman (7.0.2)
       racc
     builder (3.3.0)
+    business_time (0.13.0)
+      activesupport (>= 3.2.0)
+      tzinfo
     capybara (3.40.0)
       addressable
       matrix
@@ -381,6 +384,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman
+  business_time
   capybara
   chartkick
   cssbundling-rails
