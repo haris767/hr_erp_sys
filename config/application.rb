@@ -27,10 +27,7 @@ module HrErpSys
     # config/application.rb
     config.active_job.queue_adapter = :sidekiq
     config.assets.paths << Rails.root.join("vendor/assets")
-    # config.assets.paths << Rails.root.join("vendor/assets/admin-lte/dist/img")
+    config.assets.paths << Rails.root.join("vendor/assets/admin-lte/dist/img")
     config.assets.paths << Rails.root.join("vendor/assets/admin-lte/plugins/fontawesome-free")
-    config.assets.resolve_paths = [
-      Rails.root.join("vendor/assets/admin-lte/dist/img")  # Image folder path
-    ]
   end
 end
