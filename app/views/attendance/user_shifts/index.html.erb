@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Assigned Shifts</h3>
+    <div class="card-tools">
+      <%= link_to 'Assign New Shift', new_attendance_user_shift_path, class: "btn btn-primary btn-sm" %>
+    </div>
+  </div>
+  <div class="card-body p-0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Shift</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Assigned on</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user_shifts.each do |us| %>
+          <tr>
+            <td><%= us.user.name %></td>
+            <td><%= us.shift.name %></td>
+            <td><%= us.shift.start_time.strftime("%H:%M") %></td>
+            <td><%= us.shift.end_time.strftime("%H:%M") %></td>
+            <td><%= us.shift.created_at.to_date %></td>
+            <td>
+              <%= link_to 'Edit', edit_attendance_user_shift_path(us), class: "btn btn-sm btn-warning" %>
+              <%= button_to 'Delete', attendance_user_shift_path(us), method: :delete, data: { confirm: "Are you sure?" },form: { style: "display:inline;" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

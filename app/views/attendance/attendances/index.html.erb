@@ -48,6 +48,8 @@
           <th>Check In</th>
           <th>Check Out</th>
           <th>Hours</th>
+          <th>Shift</th>
+          <th>Overtime Hours</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
@@ -61,11 +63,13 @@
             <td><%= attendance.check_in&.strftime("%H:%M") %></td>
             <td><%= attendance.check_out&.strftime("%H:%M") %></td>
             <td><%= attendance.working_hours %></td>
+            <td><%= attendance.shift&.name || "No Shift Assigned" %></td>
+            <td><%= attendance.overtime_hours %></td>
             <td><%= attendance.status %></td>
             <td>
               <%= link_to 'Show', attendance_attendance_path(attendance), class: "btn btn-xs btn-info" %>
               <%= link_to 'Edit', edit_attendance_attendance_path(attendance), class: "btn btn-xs btn-warning" %>
-              <%= link_to 'Delete', attendance_attendance_path(attendance), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-xs btn-danger" %>
+              <%= button_to 'Delete', attendance_attendance_path(attendance), method: :delete, data: { confirm: "Are you sure?" },form: { style: "display:inline;" }, class: "btn btn-xs btn-danger" %>
             </td>
           </tr>
         <% end %>

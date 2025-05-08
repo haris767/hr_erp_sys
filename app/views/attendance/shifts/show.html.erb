@@ -1,0 +1,15 @@
+<div class="card card-info">
+  <div class="card-header">
+    <h3 class="card-title">Shift Details</h3>
+  </div>
+  <div class="card-body">
+    <p><strong>Name:</strong> <%= @shift.name %></p>
+    <p><strong>Start Time:</strong> <%= @shift.start_time.strftime('%H:%M') %></p>
+    <p><strong>End Time:</strong> <%= @shift.end_time.strftime('%H:%M') %></p>
+    <p><strong>Break Hours:</strong> <%= @shift.break_hours %></p>
+    <p><strong>Rotating:</strong> <%= @shift.is_rotating ? 'Yes' : 'No' %></p>
+    <p><strong>Shift Type:</strong> <%= @shift.shift_type %></p>
+
+    <%= link_to 'Back to List', attendance_shifts_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

@@ -8,12 +8,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
         # Admin dashboard data
         @total_employees = User.count
         @total_attendances = Attendance::Attendance.count rescue 0
+        @total_shifts = Attendance::Shift.count
         @total_leaves = Leave.count rescue 0
         # @total_salary = Payroll.sum(:net_pay) rescue 0
 
         # For charts (example setup)
         # @salary_by_month = Payroll.group_by_month(:created_at).sum(:net_pay)
         @employee_by_unit = User.group(:department_id).count
+      # Add Overtime Analyzer Chart Data
+      @overtime_chart = Attendance::OvertimeAnalyzer.overtime_chart_data
         render "dashboards/admin_dashboard"
         # redirect_to admin_user_list_path
       else

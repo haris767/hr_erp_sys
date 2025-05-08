@@ -19,6 +19,9 @@ class User < ApplicationRecord
 
   # modules associations
   has_many :attendances, class_name: "Attendance::Attendance", dependent: :destroy
+  # module shift
+  has_many :user_shifts, class_name: "Attendance::UserShift"
+  has_many :shifts, through: :user_shifts, class_name: "Attendance::Shift"
 
 
   def active_for_authentication?

@@ -1,0 +1,65 @@
+<div class="container-fluid mt-4">
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Shift-wise Attendance Report</h3>
+    </div>
+
+    <div class="card-body">
+      <%= form_with url: shift_report_attendance_attendances_path, method: :get, local: true do %>
+        <div class="form-group row">
+          <label for="shift_id" class="col-sm-2 col-form-label">Select Shift</label>
+          <div class="col-sm-6">
+            <%= select_tag :shift_id,
+                  options_from_collection_for_select(@shifts, :id, :name, params[:shift_id]),
+                  include_blank: 'Choose Shift',
+                  class: 'form-control select2' %>
+          </div>
+          <div class="col-sm-2">
+            <%= submit_tag 'View Report', class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @attendances.any? %>
+        <hr>
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>User Name</th>
+              <th>Date</th>
+              <th>Check-in Time</th>
+              <th>Check-out Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @attendances.each do |attendance| %>
+              <tr>
+                <td><%= attendance.user.name %></td>
+                <td><%= attendance.attendance_date.strftime("%d-%m-%Y") %></td>
+                <td><%= attendance.check_in.strftime("%I:%M %p") if attendance.check_in %></td>
+                <td><%= attendance.check_out.strftime("%I:%M %p") if attendance.check_out %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% elsif params[:shift_id].present? %>
+        <div class="alert alert-info mt-3">
+          No attendances found for this shift.
+        </div>
+      <% end %>
+    </div>
+    <div class="mt-3">
+      <% if @shift.present? %>
+  <%= link_to shift_report_attendance_attendances_path(format: :csv, shift_id: @shift.id), class: "btn btn-sm btn-outline-primary" do %>
+    <i class="fas fa-file-csv"></i> Export CSV
+  <% end %>
+
+  <%= link_to shift_report_attendance_attendances_path(format: :pdf, shift_id: @shift.id), class: "btn btn-sm btn-outline-danger" do %>
+    <i class="fas fa-file-pdf"></i> Export PDF
+  <% end %>
+<% end %>
+</div>
+<!-------main card div-------->
+  </div>
+</div>
+

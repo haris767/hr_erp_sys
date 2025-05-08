@@ -14,7 +14,7 @@
 </div>
 
  <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-2">
     <div class="card text-white bg-primary mb-3">
        <%= link_to admin_user_list_path, class: "card bg-primary text-white mx-2", style: "min-width: 150px;" do %>
       <div class="card-body">
@@ -24,7 +24,7 @@
       <% end %>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <div class="card text-white bg-warning mb-3">
       <%= link_to attendance_attendances_path, class: "text-white mx-2" do%>
       <div class="card-body">
@@ -34,7 +34,18 @@
       <%end%>
     </div>
   </div>
-  <div class="col-md-3">
+  
+  <div class="col-md-2">
+    <div class="card text-white bg-warning mb-3">
+      <%= link_to attendance_shifts_path, class: "text-white mx-2" do%>
+      <div class="card-body">
+        <h5 class="card-title">shifts</h5>
+        <p class="card-text"><%= @total_shifts %></p>
+      </div>
+      <%end%>
+    </div>
+  </div>
+  <div class="col-md-2">
     <div class="card text-white bg-danger mb-3">
       <div class="card-body">
         <h5 class="card-title">Leaves</h5>
@@ -42,7 +53,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <div class="card text-white bg-success mb-3">
       <div class="card-body">
         <h5 class="card-title">Salary</h5>
@@ -51,3 +62,6 @@
     </div>
   </div>
 </div>
+<!------------overrtime analyzer chart------------>
+<h3>Top Overtime Employees (Past Month)</h3>
+<%= column_chart @overtime_chart, height: "400px", library: { title: { text: "Top 5 Overtime Users" }, yAxis: { title: { text: "Hours" } } } %>

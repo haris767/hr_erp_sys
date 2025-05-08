@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_30_201640) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_01_143517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -68,7 +68,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_30_201640) do
     t.boolean "payroll_processed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "shift_id"
+    t.index ["shift_id"], name: "index_attendance_attendances_on_shift_id"
     t.index ["user_id"], name: "index_attendance_attendances_on_user_id"
+  end
+
+  create_table "attendance_shifts", force: :cascade do |t|
+    t.string "name"
+    t.time "start_time"
+    t.time "end_time"
+    t.decimal "break_hours", precision: 4, scale: 2, default: "1.0"
+    t.boolean "is_rotating", default: false
+    t.string "shift_type", default: "Regular"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "attendance_user_shifts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "shift_id", null: false
+    t.date "assigned_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shift_id"], name: "index_attendance_user_shifts_on_shift_id"
+    t.index ["user_id"], name: "index_attendance_user_shifts_on_user_id"
   end
 
   create_table "bank_details", force: :cascade do |t|
@@ -154,7 +177,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_30_201640) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "asset_details", "users"
+  add_foreign_key "attendance_attendances", "attendance_shifts", column: "shift_id"
   add_foreign_key "attendance_attendances", "users"
+  add_foreign_key "attendance_user_shifts", "attendance_shifts", column: "shift_id"
+  add_foreign_key "attendance_user_shifts", "users"
   add_foreign_key "bank_details", "users"
   add_foreign_key "job_employments", "users"
   add_foreign_key "user_infos", "users"

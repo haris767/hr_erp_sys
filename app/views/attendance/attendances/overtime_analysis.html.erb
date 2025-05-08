@@ -1,0 +1,21 @@
+<h2>Overtime Analysis</h2>
+
+<p><strong>Your Overtime in Last 30 Days:</strong> <%= @current_user_total.round(2) %> hours</p>
+
+<h3>Top Employees by Overtime</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Employee Name</th>
+      <th>Total Overtime (hrs)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @top_employees.each do |employee| %>
+      <tr>
+        <td><%= employee.name %></td>
+        <td><%= employee.total_overtime.round(2) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
